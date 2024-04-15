@@ -1,4 +1,5 @@
 <?php
+// Incluir el archivo de conexión a la base de datos
 include 'conexion_be.php';
 
 // Verificar si se recibieron los datos del formulario y el ID de la asignatura
@@ -11,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
 
     // Preparar la consulta SQL para actualizar la asignatura
     $sql = "UPDATE asignatura SET nombre=?, Clave=?, HoraSemana=? WHERE id=?";
-    $stmt = $conexion->prepare($sql);
+    $stmt = $conn->prepare($sql);
 
     if ($stmt === false) {
         echo "Error en la preparación de la consulta.";
@@ -25,12 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
             echo "Error al actualizar la asignatura: " . $stmt->error;
         }
 
-        // Cerrar la declaración preparada y la conexión
+        // Cerrar la declaración preparada
         $stmt->close();
-        $conexion->close();
     }
 } else {
     // Si no se reciben los datos correctamente, mostrar un mensaje de error
     echo "Error: No se recibieron los datos correctamente.";
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

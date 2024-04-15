@@ -185,6 +185,12 @@
         </div>
     </div>
 
+    <div id="modal-agregar" class="modal">
+        <!-- Contenido del modal de agregar -->
+    </div>
+
+
+
     <!-- Script para abrir y cerrar la ventana modal -->
     <script>
         const openModal = document.querySelector('.open-modal');
@@ -305,6 +311,30 @@ function actualizarAsignatura(id) {
                 document.getElementById('HoraSemana').value = asignatura.HoraSemana;
                 // Mostrar el modal
                 document.getElementById('modal').style.display = 'block';
+
+                // Actualizar los datos al enviar el formulario del modal
+                document.getElementById('form-asignatura').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    var formData = new FormData(this);
+                    formData.append('id', id); // Agregar el ID de la asignatura al formulario
+
+                    var xhrActualizar = new XMLHttpRequest();
+                    xhrActualizar.onreadystatechange = function () {
+                        if (xhrActualizar.readyState === XMLHttpRequest.DONE) {
+                            if (xhrActualizar.status === 200) {
+                                alert(xhrActualizar.responseText);
+                                document.getElementById('modal').style.display = 'none';
+                                // Actualizar solo la información mostrada en la interfaz
+                                document.getElementById('nombre_asignatura_' + id).innerText = formData.get('nombre');
+                            } else {
+                                alert('Error al actualizar la asignatura');
+                            }
+                        }
+                    };
+                    xhrActualizar.open('POST', 'php/actualizar_asig_be.php', true);
+                    xhrActualizar.send(formData);
+                });
             } else {
                 alert('Error al obtener los datos de la asignatura');
             }
@@ -312,31 +342,7 @@ function actualizarAsignatura(id) {
     };
     xhr.open('GET', 'php/obtener_asig_por_id.php?id=' + id, true);
     xhr.send();
-
-    // Actualizar los datos al enviar el formulario del modal
-    document.getElementById('form-asignatura').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        var formData = new FormData(this);
-        formData.append('id', id); // Agregar el ID de la asignatura al formulario
-
-        var xhrActualizar = new XMLHttpRequest();
-        xhrActualizar.onreadystatechange = function () {
-            if (xhrActualizar.readyState === XMLHttpRequest.DONE) {
-                if (xhrActualizar.status === 200) {
-                    alert(xhrActualizar.responseText);
-                    document.getElementById('modal').style.display = 'none';
-                    cargarDatosTabla(); // Actualizar la tabla después de la edición
-                } else {
-                    alert('Error al actualizar la asignatura');
-                }
-            }
-        };
-        xhrActualizar.open('POST', 'php/actualizar_asig_be.php', true);
-        xhrActualizar.send(formData);
-    });
 }
-
 
     </script>
 </body>
