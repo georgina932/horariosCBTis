@@ -185,8 +185,7 @@
         </div>
     </div>
 
-
-
+    
     <div id="modal-actualizar" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-modal" onclick="closeActualizarModal()">&times;</span>
@@ -206,7 +205,6 @@
             </form>
         </div>
     </div>
-
 
 
 
