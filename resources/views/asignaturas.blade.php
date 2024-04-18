@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Asignaturas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Agrega el enlace para Font Awesome -->
     <script src="js/scriptAsignatura.js"></script>
@@ -137,6 +137,20 @@
         .modal-button:hover {
             background-color: #7A1E39;
         }
+                /* Estilos para los botones de actualizar y eliminar */
+        .asignatura-table button {
+            background-color: #9D2449; /* Color de fondo para los botones */
+            color: #fff; /* Color del texto */
+            border: none; /* Quita el borde */
+            border-radius: 5px; /* Borde redondeado */
+            padding: 8px 12px; /* Espaciado interno */
+            margin-right: 5px; /* Margen derecho para separar los botones */
+            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
+        }
+
+        .asignatura-table button:hover {
+            background-color: #7A1E39; /* Color de fondo al pasar el mouse */
+        }
     </style>
 </head>
 
@@ -185,7 +199,7 @@
         </div>
     </div>
 
-    
+
     <div id="modal-actualizar" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-modal" onclick="closeActualizarModal()">&times;</span>
