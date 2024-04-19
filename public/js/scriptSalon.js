@@ -24,14 +24,15 @@ function actualizarTabla4(data) {
     tablaBody.innerHTML = ''; // Vacía el contenido actual de la tabla
 
     // Itera sobre los datos y crea las filas de la tabla
-    data.forEach(function(salones) {
+    data.forEach(function(salon) { // Aquí está la corrección, cambia `salones` por `salon`
 
         var newRow = document.createElement('tr');
         newRow.innerHTML =
          `
-            <td>${salones.especialidad}</td>
-            <td>${salones.grado}</td>
-            <td>${salones.grupo}</td>
+            <td>${salon.especialidad}</td>
+            <td>${salon.clave}</td>
+            <td>${salon.grado}</td>
+            <td>${salon.grupo}</td>
         `;
         tablaBody.appendChild(newRow);
     });
@@ -39,5 +40,4 @@ function actualizarTabla4(data) {
 
 // Llama a la función para cargar los datos al cargar la página
 window.addEventListener('load', cargarDatosTabla3);
-
 

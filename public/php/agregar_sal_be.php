@@ -4,20 +4,21 @@ include 'conexion_be.php';
 // Verificar si el formulario se envió correctamente
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     // Verificar si todos los campos esperados están presentes en $_POST
-    if (isset($_POST['especialidad'], $_POST['grado'], $_POST['grupo'])) {
+    if (isset($_POST['especialidad'], $_POST['clave'], $_POST['grado'], $_POST['grupo'])) {
         // Obtener los datos del formulario
         $especialidad = $_POST['especialidad'];
+        $clave= $_POST['clave'];
         $grado= $_POST['grado'];
         $grupo = $_POST['grupo'];
 
 
         // Preparar la consulta SQL
-        $query = "INSERT INTO salon (especialidad, grado, grupo)
-                  VALUES (?, ?, ?)";
+        $query = "INSERT INTO salon (especialidad, clave, grado, grupo)
+                  VALUES (?, ?, ?, ?)";
 
         // Preparar la declaración y vincular los parámetros
         $statement = mysqli_prepare($conexion, $query);
-        mysqli_stmt_bind_param($statement, "sss", $especialidad, $grado, $grupo);
+        mysqli_stmt_bind_param($statement, "ssss", $especialidad, $clave, $grado, $grupo);
 
         // Ejecutar la consulta
         $ejecutar = mysqli_stmt_execute($statement);

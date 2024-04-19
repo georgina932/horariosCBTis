@@ -8,7 +8,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : null;
 // Verificar si se proporcionó un ID válido
 if ($id !== null && is_numeric($id)) {
     // Consulta SQL para obtener los datos del docente
-    $sql = "SELECT id, especialidad, grado, grupo, FROM salon WHERE id = ?";
+    $sql = "SELECT id, especialidad, clave, grado, grupo FROM salon WHERE id = ?";
 
     // Preparar la consulta
     $stmt = $conexion->prepare($sql);

@@ -4,7 +4,7 @@ include 'conexion_be.php';
 
 
 // Realizar la consulta para obtener los datos de los docentes
-$query = "SELECT  id, especialidad, grado, grupo FROM salon";
+$query = "SELECT  id, especialidad, clave, grado, grupo FROM salon";
 $resultado = mysqli_query($conexion, $query);
 if ($resultado->num_rows > 0) {
     // Array para almacenar los datos de los docentes
@@ -15,6 +15,7 @@ if ($resultado->num_rows > 0) {
       $salon = array(
         'id' => $row['id'],
         'especialidad' => $row['especialidad'],
+        'clave' => $row['clave'],
         'grado' => $row['grado'],
         'grupo' => $row['grupo']
       );

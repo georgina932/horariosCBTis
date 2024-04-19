@@ -168,6 +168,7 @@
         <thead>
             <tr>
                 <th>Especialidad</th>
+                <th>clave</th>
                 <th>Grado</th>
                 <th>Grupo</th>
                 <th>Acciones</th>
@@ -188,6 +189,9 @@
                 <label for="especialidad">Especialidad:</label>
                 <input type="text" id="especialidad" name="especialidad" class="modal-input" required><br>
 
+                <label for="clave">clave</label>
+                <input type="text" id="clave" name="clave" class="modal-input" required><br>
+
                 <label for="grado">Grado:</label>
                 <input type="text" id="grado" name="grado" class="modal-input" required><br>
 
@@ -207,6 +211,9 @@
             <form id="form-actualizar-salon" method="post" action="php/actualizar_sal_be.php">
                 <label for="especialidad_actualizar">Especialidad:</label>
                 <input type="text" id="especialidad_actualizar" name="especialidad" class="modal-input" required><br>
+
+                <label for="clave_actualizar">Clave:</label>
+                <input type="text" id="clave_actualizar" name="clave" class="modal-input" required><br>
 
                 <label for="grado_actualizar">Grado:</label>
                 <input type="text" id="grado_actualizar" name="grado" class="modal-input" required><br>
@@ -252,14 +259,15 @@
 
 <script>
     // Función para abrir el modal de actualización y cargar los datos
-    function openActualizarModal(id) {
+    function openActualiModal(id) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                    var asignatura = JSON.parse(xhr.responseText);
+                    var salon = JSON.parse(xhr.responseText);
                     // Llenar el formulario del modal con los datos de la asignatura
                     document.getElementById('especialidad_actualizar').value = salon.especialidad;
+                    document.getElementById('clave_actualizar').value = salon.clave;
                     document.getElementById('grado_actualizar').value = salon.grado;
                     document.getElementById('grupo_actualizar').value = salon.grupo;
                     document.getElementById('id_salon_actualizar').value = salon.id;
@@ -327,10 +335,11 @@ function actualizarTabla(data) {
         var newRow = document.createElement('tr');
         newRow.innerHTML =
             `<td>${salon.especialidad}</td>
+             <td>${salon.clave}</td>
              <td>${salon.grado}</td>
              <td>${salon.grupo}</td>
-             <td><button onclick="eliminarsalon(${salon.id})">Eliminar</button>
-                <button onclick="openActualizarModal(${salon.id})">Actualizar</button></td>
+             <td><button onclick="eliminarSalon(${salon.id})">Eliminar</button>
+                <button onclick="openActualiModal(${salon.id})">Actualizar</button></td>
              `; // Botón de eliminar
 
         tablaBody.appendChild(newRow);
@@ -393,6 +402,7 @@ document.getElementById('form-actualizar-salon').addEventListener('submit', func
                     var asignatura = JSON.parse(xhr.responseText);
                     // Llenar el formulario del modal con los datos de la asignatura
                     document.getElementById('especialidad_actualizar').value = salon.especialidad;
+                    document.getElementById('clave_actualizar').value =salon.clave;
                     document.getElementById('grado_actualizar').value =salon.grado;
                     document.getElementById('grupo_actualizar').value = salon.grupo;
                     document.getElementById('id_salon_actualizar').value = salon.id;

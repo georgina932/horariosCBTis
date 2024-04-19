@@ -6,18 +6,19 @@ require_once 'conexion_be.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     // Obtener los datos del formulario
     $id = $_POST['id'];
-    $nombre = $_POST['Especialidad']; // Cambio: 'nombre' en minúsculas
-    $clave = $_POST['grado'];   // Cambio: 'Clave' en mayúsculas
-    $horaSemana = $_POST['grupo']; // Cambio: 'HoraSemana' en mayúsculas
+    $especialidad = $_POST['especialidad'];
+    $clave = $_POST['clave'];
+    $grado = $_POST['grado'];
+    $grupo= $_POST['grupo'];
 
     // Preparar la consulta SQL para actualizar la asignatura
-    $sql = "UPDATE salon SET especialidad=?, grado=?, grupo=? WHERE id=?";
+    $sql = "UPDATE salon SET especialidad=?, clave=?, grado=?, grupo=? WHERE id=?";
     $stmt = $conexion->prepare($sql);
 
     if ($stmt === false) {
         echo "Error en la preparación de la consulta.";
     } else {
-        $stmt->bind_param("sssi", $especialidad, $grado, $grupo, $id);
+        $stmt->bind_param("ssssi", $especialidad, $clave, $grado, $grupo, $id);
 
         // Ejecutar la consulta
         if ($stmt->execute()) {
