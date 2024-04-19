@@ -36,3 +36,7 @@ Route::get('/asignaturas', function () {
 Route::get('/salones', function () {
     return view('salones');
 })->name('salones');
+
+Route::get('/horarios', function () {
+    return view('horarios');
+})->name('horarios');
