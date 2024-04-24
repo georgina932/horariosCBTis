@@ -63,37 +63,23 @@
     @include('principal')
 
     <div class="container">
-        <h2 style="text-align: center;color: #333; margin-bottom: 20px;">
-            Selecciona un docente:</h2>
-        <form action="php/procesar_seleccion_be.php" method="POST">
+        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">
+            Selección:</h2>
+        <form id="form-seleccion" method="POST" action="php/procesar_se_asig_be.php">
             <select name="docente" id="docentes-select">
                 <?php include 'php/consultar_docentes_be.php'; ?>
             </select>
-            <button type="submit"><i class="fas fa-check-circle"></i> Seleccionar</button>
+            <select name="asignatura" id="asignaturas-select">
+                <?php include 'php/consultar_asig_be.php'; ?>
+            </select>
+            <button type="submit" id="btn-asignar"><i class="fas fa-check-circle"></i> Asignar</button>
         </form>
     </div>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#docentes-select').on('change', function() {
-                var docenteId = $(this).val();
-                $.ajax({
-                    url: 'php/consultar_sal_be.php',
-                    method: 'POST',
-                    data: { docente_id: docenteId },
-                    success: function(response) {
-                        $('#salones-container').html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            });
-        });
-    </script>
-
     <script src="js/scriptDocente.js"></script>
+    <script src="js/scriptAsignatura.js"></script>
+
+
+
 </body>
 </html>
