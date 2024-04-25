@@ -12,6 +12,8 @@ if (isset($_POST['asignatura'])) {
 
     // Preparar la declaración y vincular los parámetros
     $statement = mysqli_prepare($conexion, $query);
+
+    if ($statement) {
     mysqli_stmt_bind_param($statement, "iis", $idAsignaturaSeleccionada, $idDocente, $fecha);
 
 
@@ -19,22 +21,37 @@ if (isset($_POST['asignatura'])) {
     // Ejecutar la consulta
     $ejecutar = mysqli_stmt_execute($statement);
 
+    if ($ejecutar) {
+
     $sql = "UPDATE asignatura SET  disponible=? WHERE id=$idAsignaturaSeleccionada";
     $stmt = $conexion->prepare($sql);
+
+    if ($stmt) {
+
     $status = 0;
     $stmt->bind_param("i", $status);
     mysqli_stmt_execute($stmt);
 
 
-
-
-
-    // Aquí puedes realizar las acciones que necesites con el ID de la asignatura seleccionada
-    // Por ejemplo, guardar en la base de datos, redireccionar, mostrar información, etc.
-
-    echo "Asignatura seleccionada con ID: " . $idAsignaturaSeleccionada;
+    echo '<script>
+    window.onload = function() {
+        alert("Asignatura asignada con éxito");
+        setTimeout(function() {
+            window.location.reload();
+        }, 2000);
+    }
+  </script>';
+            } else {
+                echo "Error en la preparación de la consulta de actualización";
+            }
+        } else {
+            echo "Error al ejecutar la consulta de inserción";
+        }
+    } else {
+        echo "Error en la preparación de la consulta de inserción";
+    }
 } else {
-    // Si no se recibió el ID de la asignatura, mostrar un mensaje de error
-    echo "Error: No se recibió el ID de la asignatura";
+    // Si no se recibió el ID de la asignatura o el ID del docente, mostrar un mensaje de error
+    echo "Error: No se recibió el ID de la asignatura o el ID del docente";
 }
 ?>

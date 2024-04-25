@@ -40,3 +40,4 @@ Route::get('/salones', function () {
 Route::get('/horarios', function () {
     return view('horarios');
 })->name('horarios');
+

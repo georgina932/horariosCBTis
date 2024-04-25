@@ -20,7 +20,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
             header("Location: /principal");
             exit();
         } else {
-            echo '<script>alert("Credenciales incorrectas"); window.location = "../index.php";</script>';
+            echo  '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var mensaje = "Usuario o contraseña incorrectos";
+                var rutaRedireccion = "../index.php";
+
+                var estiloAlerta = "position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: #f44336; color: white; padding: 10px 20px; border-radius: 5px; font-size: 16px; z-index: 9999;";
+
+                var alerta = document.createElement("div");
+                alerta.style.cssText = estiloAlerta;
+                alerta.textContent = mensaje;
+                document.body.appendChild(alerta);
+
+                setTimeout(function() {
+                    alerta.style.display = "none"; // Ocultar la alerta
+                    window.location.href = rutaRedireccion; // Redireccionar después de ocultar la alerta
+                },3000);
+            });
+        </script>';
         }
     } else {
         echo '<script>alert("Error: Datos del formulario incompletos"); window.location = "../index.php";</script>';
