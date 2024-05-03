@@ -1,5 +1,6 @@
 <?php
 include 'conexion_be.php';
+
 // Verificar si se recibió el ID de la asignatura desde el formulario
 if (isset($_POST['asignatura'])) {
     $idAsignaturaSeleccionada = $_POST['asignatura'];
@@ -17,7 +18,7 @@ if (isset($_POST['asignatura'])) {
 
 
 
-    if (true) {
+    if ($statement) {
         $statement->bind_param("iis",$idDocente, $idAsignaturaSeleccionada, $fecha);
 
 
@@ -27,14 +28,12 @@ if (isset($_POST['asignatura'])) {
 
     if ($ejecutar) {
 
-    $sql = "UPDATE asignatura SET  disponible=? WHERE id=$idAsignaturaSeleccionada";
+    $sql = "UPDATE asignatura SET  disponible= 0 WHERE id=?";
     $stmt = $conexion->prepare($sql);
 
     if ($stmt) {
-
-    $status = 0;
-    $stmt->bind_param("i", $status);
-    mysqli_stmt_execute($stmt);
+        $stmt->bind_param("i", $idAsignaturaSeleccionada);
+        $stmt->execute();
 
 
     echo '<script>

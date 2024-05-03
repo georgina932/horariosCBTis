@@ -8,7 +8,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     // Crear la consulta preparada para eliminar el docente
-    $query = "DELETE FROM docente WHERE id = ?";
+    $query = "DELETE FROM asignatura WHERE id = ?";
 
     // Preparar la consulta
     $stmt = mysqli_prepare($conexion, $query);
@@ -16,15 +16,15 @@ if (isset($_POST['id'])) {
     // Vincular parámetros y ejecutar la consulta
     mysqli_stmt_bind_param($stmt, 'i', $id);
     if (mysqli_stmt_execute($stmt)) {
-        echo "Docente eliminado correctamente";
+        echo "asignatura eliminado correctamente";
     } else {
-        echo "Error al eliminar el docente: " . mysqli_stmt_error($stmt);
+        echo "Error al eliminar la asignatura: " . mysqli_stmt_error($stmt);
     }
 
     // Cerrar el statement
     mysqli_stmt_close($stmt);
 } else {
-    echo "Error: ID de docente no proporcionado";
+    echo "Error: ID de asignatura no proporcionado";
 }
 
 // Cerrar la conexión a la base de datos

@@ -10,7 +10,7 @@
                 console.log(responseData);
                 actualizarTabla3(responseData); // Llama a la función para actualizar la tabla con los datos obtenidos
             } else {
-                alert('Error al cargar los datos de la asignatura');
+                alert('Error al cargar los datos de la asignnatura');
             }
         }
     };
