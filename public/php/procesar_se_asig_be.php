@@ -4,22 +4,26 @@ include 'conexion_be.php';
 if (isset($_POST['asignatura'])) {
     $idAsignaturaSeleccionada = $_POST['asignatura'];
     $idDocente = $_POST['docente'];
-    $fecha = date("Y-m-d h:m");
+    $fecha = date("Y-m-d");
+
 
     // Preparar la consulta SQL
-    $query = "INSERT INTO relacion (id_doc, id_asi, fecha)
-    VALUES (?, ?, ?)";
+    $query = "INSERT INTO relacion (id_doc,id_asi,fecha)
+    VALUES (?,?,?)";
 
     // Preparar la declaración y vincular los parámetros
-    $statement = mysqli_prepare($conexion, $query);
+    $statement = $conexion->prepare($query);
 
-    if ($statement) {
-    mysqli_stmt_bind_param($statement, "iis", $idAsignaturaSeleccionada, $idDocente, $fecha);
+
+
+
+    if (true) {
+        $statement->bind_param("iis",$idDocente, $idAsignaturaSeleccionada, $fecha);
 
 
 
     // Ejecutar la consulta
-    $ejecutar = mysqli_stmt_execute($statement);
+    $statement->execute();
 
     if ($ejecutar) {
 
@@ -36,11 +40,8 @@ if (isset($_POST['asignatura'])) {
     echo '<script>
     window.onload = function() {
         alert("Asignatura asignada con éxito");
-        setTimeout(function() {
-            window.location.reload();
-        }, 2000);
     }
-  </script>';
+        </script>';
             } else {
                 echo "Error en la preparación de la consulta de actualización";
             }

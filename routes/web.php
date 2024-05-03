@@ -41,3 +41,7 @@ Route::get('/horarios', function () {
     return view('horarios');
 })->name('horarios');
 
+
+Route::get('/inicio', function () {
+    return view('inicio');
+})->name('inicio');

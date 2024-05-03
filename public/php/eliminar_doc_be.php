@@ -16,7 +16,7 @@ if (isset($_POST['id'])) {
     // Vincular parámetros y ejecutar la consulta
     mysqli_stmt_bind_param($stmt, 'i', $id);
     if (mysqli_stmt_execute($stmt)) {
-        echo "Docente eliminad0 correctamente";
+        echo "Docente eliminado correctamente";
     } else {
         echo "Error al eliminar el docente: " . mysqli_stmt_error($stmt);
     }
