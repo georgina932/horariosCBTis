@@ -24,9 +24,7 @@
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
 
-
-
-        /* Estilos para el for  mulario */
+        /* Estilos para el formulario */
         form {
             display: flex;
             flex-direction: column;
@@ -60,26 +58,28 @@
     </style>
 </head>
 <body>
+    <!-- Incluir el contenido principal -->
     @include('principal')
 
     <div class="container">
         <h2 style="text-align: center; color: #333; margin-bottom: 20px;">
             Selección:</h2>
+        <!-- Formulario de selección de docente y asignatura -->
         <form id="form-seleccion" method="POST" action="php/procesar_se_asig_be.php">
+            <!-- Select para seleccionar docente -->
             <select name="docente" id="docentes-select">
                 <?php include 'php/consultar_docentes_be.php'; ?>
             </select>
+            <!-- Select para seleccionar asignatura -->
             <select name="asignatura" id="asignaturas-select">
                 <?php include 'php/consultar_asig_be.php'; ?>
             </select>
+            <!-- Botón para realizar la asignación -->
             <button type="submit" id="btn-asignar"><i class="fas fa-check-circle"></i> Asignar</button>
         </form>
     </div>
 
-    <script src="js/scriptDocente.js"></script>
-    <script src="js/scriptAsignatura.js"></script>
-
-
-
+    <!-- No es necesario incluir los scripts de asignatura y docente aquí -->
 </body>
 </html>
+
