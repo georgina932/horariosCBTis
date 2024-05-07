@@ -1,0 +1,125 @@
+
+/* Estilos de la tabla */
+.docentes-table {
+    margin: 20px auto; /* Centrar la tabla horizontalmente */
+            border-collapse: collapse;
+            width: 80%; /* Ancho de la tabla */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            border-radius: 10px;
+            overflow: hidden; /* Evitar desbordamiento de sombra */
+            background-color: #fff; /* Fondo blanco */
+}
+
+.docentes-table th,
+.docentes-table td {
+    border: 1px solid #ddd; /* Borde gris claro */
+    padding: 12px;
+    text-align: left;
+}
+
+.docentes-table th {
+    background-color: #f2f2f2; /* Fondo gris claro */
+    color: #333; /* Texto oscuro */
+    font-weight: bold;
+}
+
+.docentes-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos de los botones de lista */
+.button-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Centrar elementos de la lista */
+        }
+
+.button-list li {
+  margin-bottom: 10px;
+}
+
+.button-list a {
+    display: inline-block;
+            background-color: #229439;
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease; /* Transición suave */
+        }
+
+.button-list a:hover {
+    background-color: #145028; /* Color de fondo al pasar el mouse */
+}
+
+
+/* Estilos para la ventana modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1d2d2; /* Color de fondo */
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-family: Arial, sans-serif; /* Fuente para toda la ventana modal */
+  width: 40%; /* Cambia el ancho según tu preferencia */
+  max-width: 400px; /* Establece un ancho máximo si lo deseas */
+}
+
+.modal input[type="text"],
+.modal input[type="email"],
+.modal select,
+.modal textarea {
+  width: calc(100% - 10px); /* Ancho ajustado con padding */
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Incluir padding y border en el ancho */
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal input[type="submit"] {
+  background-color: #9D2449;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.modal input[type="submit"]:hover {
+  background-color: #7A1E39;
+}
+/* Estilos para cerrar la ventana modal */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+   /* Estilos para los botones de actualizar y eliminar */
+   .docentes-table button {
+            background-color: #9D2449; /* Color de fondo para los botones */
+            color: #fff; /* Color del texto */
+            border: none; /* Quita el borde */
+            border-radius: 5px; /* Borde redondeado */
+            padding: 8px 12px; /* Espaciado interno */
+            margin-right: 5px; /* Margen derecho para separar los botones */
+            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
+        }
+
+        .docentes-table button:hover {
+            background-color: #7A1E39; /* Color de fondo al pasar el mouse */
+        }
+

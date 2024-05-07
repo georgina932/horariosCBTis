@@ -1,3 +1,4 @@
+
  // Función para  los datos actualizados en la tabla
  function cargarDatosTabla2() {
     var xhr = new XMLHttpRequest();

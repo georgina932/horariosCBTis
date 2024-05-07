@@ -5,138 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Docentes</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Agrega el enlace para Font Awesome -->
+<link rel="stylesheet" href="css/doce.css">
 <script src="js/scriptDocente.js"></script>
 
 @include('principal')
 
-<style>
-/* Estilos del encabezado */
 
-
-/* Estilos de la tabla */
-.docentes-table {
-    margin: 20px auto; /* Centrar la tabla horizontalmente */
-            border-collapse: collapse;
-            width: 80%; /* Ancho de la tabla */
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-            border-radius: 10px;
-            overflow: hidden; /* Evitar desbordamiento de sombra */
-            background-color: #fff; /* Fondo blanco */
-}
-
-.docentes-table th,
-.docentes-table td {
-    border: 1px solid #ddd; /* Borde gris claro */
-    padding: 12px;
-    text-align: left;
-}
-
-.docentes-table th {
-    background-color: #f2f2f2; /* Fondo gris claro */
-    color: #333; /* Texto oscuro */
-    font-weight: bold;
-}
-
-.docentes-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Estilos de los botones de lista */
-.button-list {
-    list-style-type: none;
-    padding: 0;
-    text-align: center; /* Centrar elementos de la lista */
-        }
-
-.button-list li {
-  margin-bottom: 10px;
-}
-
-.button-list a {
-    display: inline-block;
-            background-color: #229439;
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            padding: 15px 30px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease; /* Transición suave */
-        }
-
-.button-list a:hover {
-    background-color: #145028; /* Color de fondo al pasar el mouse */
-}
-
-
-/* Estilos para la ventana modal */
-.modal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f1d2d2; /* Color de fondo */
-  padding: 20px;
-  border-radius: 5px;
-  z-index: 1000;
-  font-family: Arial, sans-serif; /* Fuente para toda la ventana modal */
-  width: 40%; /* Cambia el ancho según tu preferencia */
-  max-width: 400px; /* Establece un ancho máximo si lo deseas */
-}
-
-.modal input[type="text"],
-.modal input[type="email"],
-.modal select,
-.modal textarea {
-  width: calc(100% - 10px); /* Ancho ajustado con padding */
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box; /* Incluir padding y border en el ancho */
-}
-
-.modal label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.modal input[type="submit"] {
-  background-color: #9D2449;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.modal input[type="submit"]:hover {
-  background-color: #7A1E39;
-}
-/* Estilos para cerrar la ventana modal */
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
-   /* Estilos para los botones de actualizar y eliminar */
-   .docentes-table button {
-            background-color: #9D2449; /* Color de fondo para los botones */
-            color: #fff; /* Color del texto */
-            border: none; /* Quita el borde */
-            border-radius: 5px; /* Borde redondeado */
-            padding: 8px 12px; /* Espaciado interno */
-            margin-right: 5px; /* Margen derecho para separar los botones */
-            cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
-        }
-
-        .docentes-table button:hover {
-            background-color: #7A1E39; /* Color de fondo al pasar el mouse */
-        }
-</style>
 </head>
 <body>
     <div style="float:left;">
@@ -231,6 +105,7 @@
 
     <!-- Script para abrir y cerrar la ventana modal -->
     <script>
+        // Función para abrir y cerrar la ventana modal
         const openModal = document.querySelector('.open-modal');
         const closeModal = document.querySelector('.close-modal');
         const modal = document.getElementById('modal');
@@ -253,43 +128,40 @@
         window.addEventListener('load', function () {
             cargarDatosTabla();
         });
-    </script>
-<script>
-    // Función para abrir el modal de actualización y cargar los datos del docente
-    function openActualModal(id) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    var docente = JSON.parse(xhr.responseText);
-                    // Llenar el formulario del modal con los datos del docente
-                    document.getElementById('nombre_actualizar1').value = docente.nombre;
-                    document.getElementById('clave_actualizar1').value = docente.clave;
-                    document.getElementById('carga_actualizar').value = docente.carga;
-                    document.getElementById('descarga_actualizar').value = docente.descarga;
-                    document.getElementById('asignadas_actualizar').value = docente.asignadas;
-                    document.getElementById('entrada_actualizar').value = docente.entrada;
-                    document.getElementById('salida_actualizar').value = docente.salida;
-                    document.getElementById('id_docente_actualizar').value = docente.id;
-                    // Mostrar el modal de actualización
-                    document.getElementById('modal-actu-Docente').style.display = 'block';
-                } else {
-                    alert('Error al obtener los datos del docente');
+
+        // Función para abrir el modal de actualización y cargar los datos del docente
+        function openActualModal(id) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var docente = JSON.parse(xhr.responseText);
+                        // Llenar el formulario del modal con los datos del docente
+                        document.getElementById('nombre_actualizar1').value = docente.nombre;
+                        document.getElementById('clave_actualizar1').value = docente.clave;
+                        document.getElementById('carga_actualizar').value = docente.carga;
+                        document.getElementById('descarga_actualizar').value = docente.descarga;
+                        document.getElementById('asignadas_actualizar').value = docente.asignadas;
+                        document.getElementById('entrada_actualizar').value = docente.entrada;
+                        document.getElementById('salida_actualizar').value = docente.salida;
+                        document.getElementById('id_docente_actualizar').value = docente.id;
+                        // Mostrar el modal de actualización
+                        document.getElementById('modal-actu-Docente').style.display = 'block';
+                    } else {
+                        alert('Error al obtener los datos del docente');
+                    }
                 }
-            }
-        };
-        xhr.open('GET', 'php/obtener_doc_por_id.php?id=' + id, true);
-        xhr.send();
-    }
+            };
+            xhr.open('GET', 'php/obtener_doc_por_id.php?id=' + id, true);
+            xhr.send();
+        }
 
-    // Función para cerrar el modal de actualización
-    function closeActualizarModal() {
-        document.getElementById('modal-actualizar').style.display = 'none';
-    }
-</script>
+        // Función para cerrar el modal de actualización
+        function closeActualizarModal() {
+            document.getElementById('modal-actualizar').style.display = 'none';
+        }
 
-    <!-- Script para la solicitud AJAX y actualización de la tabla -->
-    <script>
+        // Evento submit para agregar un nuevo docente
         document.getElementById('form-docente').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -311,6 +183,7 @@
             xhr.send(formData);
         });
 
+        // Función para cargar los datos de la tabla de docentes
         function cargarDatosTabla() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -327,6 +200,7 @@
             xhr.send();
         }
 
+        // Función para actualizar la tabla de docentes
         function actualizarTabla(data) {
             var tablaBody = document.getElementById('docentes-body');
             tablaBody.innerHTML = '';
@@ -344,11 +218,12 @@
                     <td><button onclick="eliminarDocente(${docente.id})">Eliminar</button>
                         <button onclick="openActualModal(${docente.id})">Actualizar</button></td>
                 `; // Botón de eliminar y actualizar
-7
+
                 tablaBody.appendChild(newRow);
             });
         }
 
+        // Función para eliminar un docente
         function eliminarDocente(id) {
             var confirmar = confirm('¿Estás seguro de que deseas eliminar este docente?');
             if (confirmar) {
@@ -369,6 +244,7 @@
             }
         }
 
+        // Evento submit para actualizar un docente
         document.getElementById('form-actualizar-docente').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -390,52 +266,6 @@
             xhr.open('POST', 'php/actualizar_doc_be.php', true);
             xhr.send(formData);
         });
-
-        function actualizarDocente(id) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var docente = JSON.parse(xhr.responseText);
-                // Llenar el formulario del modal con los datos del docente
-                document.getElementById('nombre_actualizar').value = docente.nombre;
-                document.getElementById('clave_actualizar').value = docente.clave;
-                document.getElementById('carga_actualizar').value = docente.carga;
-                document.getElementById('descarga_actualizar').value = docente.descarga;
-                document.getElementById('asignadas_actualizar').value = docente.asignadas;
-                document.getElementById('entrada_actualizar').value = docente.entrada;
-                document.getElementById('salida_actualizar').value = docente.salida;
-                document.getElementById('id_docente_actualizar').value = docente.id;
-                // Mostrar el modal de actualización
-                document.getElementById('modal-actualizar').style.display = 'block';
-            } else {
-                alert('Error al obtener los datos del docente');
-            }
-        }
-    };
-    xhr.open('GET', 'ruta/hacia/obtener_doc_por_id.php?id=' + id, true);
-    xhr.send();
-}
-
-function closeActualizarModal() {
-    document.getElementById('modal-actualizar').style.display = 'none';
-}
-
-document.getElementById('form-actualizar-docente').addEventListener('submit', function (e) {
-    e.preventDefault(); // Evita que se envíe el formulario de manera convencional
-
-    var formData = new FormData(this); // Obtiene los datos del formulario
-    var id = formData.get('id'); // Obtén el ID del docente si es necesario (si tienes un campo oculto 'id')
-
-    // Cierra el modal de actualización
-    document.getElementById('modal-actualizar').style.display = 'none';
-
-    // Recarga la página actual para actualizar la tabla de docentes
-    window.location.reload();
-});
-
-
-
     </script>
 </body>
 </html>
