@@ -81,10 +81,74 @@
     </div>
 
 
+ <!-- Ventana modal de asignar horas -->
+ <div id="modal-dia" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 class="modal-title">Asignar horas</h2>
+        <form id="form-hora" method="post" action="php/agregar_horario_be.php">
+                    <label for="dia">Día:</label>
+        <select id="dia" name="dia" class="modal-input" required>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+        </select><br>
 
+            <label for="HoraIni">Hora inicio:</label>
+            <input type="text" id="HoraIni" name="HoraIni" class="modal-input" required><br>
+
+            <label for="HoraFin">Horas fin:</label>
+            <input type="text" id="HoraFin" name="HoraFin" class="modal-input" required><br>
+
+            <input type="hidden" id="asignatura_id" name="asignatura_id">
+
+            <input type="submit" value="Guardar" class="modal-button">
+        </form>
+    </div>
+</div>
 
       <!-- Scripts  -->
       <script>
+
+// Función para abrir el modal de asignar horas y cargar el ID de la asignatura
+
+        function openAsignarHorasModal(id) {
+    document.getElementById('asignatura_id').value = id;
+    const modalDia = document.getElementById('modal-dia');
+    const diaSelect = document.getElementById('dia');
+    const selectedDay = diaSelect.options[diaSelect.selectedIndex].value;
+    document.getElementById('dia').value = selectedDay;
+    modalDia.style.display = 'block';
+}
+
+// Evento submit del formulario de asignar horas
+document.getElementById('form-hora').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                alert(xhr.responseText);
+                document.getElementById('modal-dia').style.display = 'none'; // Ocultar el modal de asignar horas
+                // Aquí puedes realizar acciones adicionales si es necesario
+            } else {
+                alert('Error al asignar las horas');
+            }
+        }
+    };
+    xhr.open('POST', 'php/agregar_horario_be.php', true); // Ruta al archivo PHP para asignar horas
+    xhr.send(formData);
+});
+
+
+
+
+
         // Script para abrir y cerrar la ventana modal
         const openModal = document.querySelector('.open-modal');
         const closeModal = document.querySelector('.close-modal');
@@ -108,6 +172,7 @@
         window.addEventListener('load', function () {
             cargarDatosTabla();
         });
+
 
         // Función para abrir el modal de actualización y cargar los datos
         function openActualizarModal(id) {
@@ -188,7 +253,8 @@
                      <td>${asignatura.Clave}</td>
                      <td>${asignatura.HoraSemana}</td>
                      <td><button onclick="eliminarAsignatura(${asignatura.id})">Eliminar</button>
-                        <button onclick="openActualizarModal(${asignatura.id})">Actualizar</button></td>
+                        <button onclick="openActualizarModal(${asignatura.id})">Actualizar</button>
+                        <button onclick="openAsignarHorasModal(${asignatura.id})">Asignar horas</button>
                      `; // Botón de eliminar
 
                 tablaBody.appendChild(newRow);
@@ -237,6 +303,8 @@
             xhr.open('POST', 'php/actualizar_asig_be.php', true);
             xhr.send(formData);
         });
+
+
 
     </script>
 </body>
