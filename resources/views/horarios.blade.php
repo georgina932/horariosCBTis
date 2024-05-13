@@ -78,6 +78,7 @@
             <button type="submit" id="btn-asignar"><i class="fas fa-check-circle"></i> Asignar</button>
         </form>
     </div>
+    
 
     <!-- No es necesario incluir los scripts de asignatura y docente aquí -->
 </body>
