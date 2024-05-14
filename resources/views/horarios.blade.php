@@ -5,55 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horarios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/hora.css">
     <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
-
-        /* Estilos para el contenedor principal */
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Estilos para el formulario */
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Estilos para el select */
-        select {
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        table {
             width: 100%;
-            max-width: 300px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
         }
-
-        /* Estilos para el botón */
-        button {
-            padding: 10px 20px;
-            background-color: #229439;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
         }
-
-        button:hover {
-            background-color: #145028;
+        table th {
+            background-color: #f2f2f2;
+        }
+        .no-result {
+            text-align: center;
+            color: #888;
         }
     </style>
 </head>
@@ -62,8 +32,7 @@
     @include('principal')
 
     <div class="container">
-        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">
-            Selección:</h2>
+        <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Selección:</h2>
         <!-- Formulario de selección de docente y asignatura -->
         <form id="form-seleccion" method="POST" action="php/procesar_se_asig_be.php">
             <!-- Select para seleccionar docente -->
@@ -78,9 +47,65 @@
             <button type="submit" id="btn-asignar"><i class="fas fa-check-circle"></i> Asignar</button>
         </form>
     </div>
-    
+    <!-- Tabla de horarios -->
+    <h2 style="text-align: center; color: #333; margin-top: 20px;">Horarios:</h2>
+    <div id="tabla-horarios">
+        <?php
+        // Incluir archivo de conexión
+        include 'php/conexion_be.php';
 
-    <!-- No es necesario incluir los scripts de asignatura y docente aquí -->
+        // Verificar conexión
+        if ($conexion->connect_error) {
+            die("Conexión fallida: " . $conexion->connect_error);
+        }
+
+        // Consulta SQL
+        $sql = "SELECT a.nombre AS materia, a.Clave, h.dia, h.HoraIni, h.HoraFin
+                FROM asignatura a
+                INNER JOIN horarios h ON a.id = h.id_asi
+                INNER JOIN salon s ON h.id_sal = s.id  -- Asegúrate de que esta columna existe y es correcta
+                WHERE s.id = 1
+                ORDER BY h.dia, h.HoraIni
+                LIMIT 0, 25";
+
+        // Ejecutar consulta
+        $result = $conexion->query($sql);
+
+        // Verificar si la consulta fue exitosa
+        if ($result === false) {
+            echo "Error en la consulta: " . $conexion->error;
+        } else {
+            // Generar la estructura de la tabla HTML
+            echo "<table>
+                    <tr>
+                        <th>Materia</th>
+                        <th>Clave</th>
+                        <th>Día</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora de Fin</th>
+                    </tr>";
+
+            // Mostrar resultados en la tabla
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                            <td>" . $row["materia"] . "</td>
+                            <td>" . $row["Clave"] . "</td>
+                            <td>" . $row["dia"] . "</td>
+                            <td>" . $row["HoraIni"] . "</td>
+                            <td>" . $row["HoraFin"] . "</td>
+                          </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5' class='no-result'>No se encontraron resultados.</td></tr>";
+            }
+
+            echo "</table>";
+        }
+
+        // Cerrar conexión
+        $conexion->close();
+        ?>
+    </div>
 </body>
 </html>
-
