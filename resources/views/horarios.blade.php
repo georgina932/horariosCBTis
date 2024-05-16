@@ -46,66 +46,67 @@
             <!-- Botón para realizar la asignación -->
             <button type="submit" id="btn-asignar"><i class="fas fa-check-circle"></i> Asignar</button>
         </form>
-    </div>
-    <!-- Tabla de horarios -->
-    <h2 style="text-align: center; color: #333; margin-top: 20px;">Horarios:</h2>
-    <div id="tabla-horarios">
-        <?php
-        // Incluir archivo de conexión
-        include 'php/conexion_be.php';
 
-        // Verificar conexión
-        if ($conexion->connect_error) {
-            die("Conexión fallida: " . $conexion->connect_error);
-        }
+        <!-- Tabla de horarios -->
+        <h2 style="text-align: center; color: #333; margin-top: 20px;">Horarios:</h2>
+        <div id="tabla-horarios">
+            <?php
+            // Incluir archivo de conexión
+            include 'php/conexion_be.php';
 
-        // Consulta SQL
-        $sql = "SELECT a.nombre AS materia, a.Clave, h.dia, h.HoraIni, h.HoraFin
-                FROM asignatura a
-                INNER JOIN horarios h ON a.id = h.id_asi
-                INNER JOIN salon s ON h.id_sal = s.id  -- Asegúrate de que esta columna existe y es correcta
-                WHERE s.id = 1
-                ORDER BY h.dia, h.HoraIni
-                LIMIT 0, 25";
-
-        // Ejecutar consulta
-        $result = $conexion->query($sql);
-
-        // Verificar si la consulta fue exitosa
-        if ($result === false) {
-            echo "Error en la consulta: " . $conexion->error;
-        } else {
-            // Generar la estructura de la tabla HTML
-            echo "<table>
-                    <tr>
-                        <th>Materia</th>
-                        <th>Clave</th>
-                        <th>Día</th>
-                        <th>Hora de Inicio</th>
-                        <th>Hora de Fin</th>
-                    </tr>";
-
-            // Mostrar resultados en la tabla
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>
-                            <td>" . $row["materia"] . "</td>
-                            <td>" . $row["Clave"] . "</td>
-                            <td>" . $row["dia"] . "</td>
-                            <td>" . $row["HoraIni"] . "</td>
-                            <td>" . $row["HoraFin"] . "</td>
-                          </tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5' class='no-result'>No se encontraron resultados.</td></tr>";
+            // Verificar conexión
+            if ($conexion->connect_error) {
+                die("Conexión fallida: " . $conexion->connect_error);
             }
 
-            echo "</table>";
-        }
+            // Consulta SQL
+            $sql = "SELECT a.nombre AS materia, a.Clave, h.dia, h.HoraIni, h.HoraFin
+                    FROM asignatura a
+                    INNER JOIN horarios h ON a.id = h.id_asi
+                    INNER JOIN salon s ON h.id_sal = s.id  -- Asegúrate de que esta columna existe y es correcta
+                    WHERE s.id = 1
+                    ORDER BY h.dia, h.HoraIni
+                    LIMIT 0, 25";
 
-        // Cerrar conexión
-        $conexion->close();
-        ?>
+            // Ejecutar consulta
+            $result = $conexion->query($sql);
+
+            // Verificar si la consulta fue exitosa
+            if ($result === false) {
+                echo "Error en la consulta: " . $conexion->error;
+            } else {
+                // Generar la estructura de la tabla HTML
+                echo "<table>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Clave</th>
+                            <th>Día</th>
+                            <th>Hora de Inicio</th>
+                            <th>Hora de Fin</th>
+                        </tr>";
+
+                // Mostrar resultados en la tabla
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                                <td>" . $row["materia"] . "</td>
+                                <td>" . $row["Clave"] . "</td>
+                                <td>" . $row["dia"] . "</td>
+                                <td>" . $row["HoraIni"] . "</td>
+                                <td>" . $row["HoraFin"] . "</td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5' class='no-result'>No se encontraron resultados.</td></tr>";
+                }
+
+                echo "</table>";
+            }
+
+            // Cerrar conexión
+            $conexion->close();
+            ?>
+        </div>
     </div>
 </body>
 </html>
