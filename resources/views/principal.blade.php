@@ -65,7 +65,8 @@
   <a href="docentes"><i class="fas fa-user"></i> Docentes</a>
   <a href="asignaturas"><i class="fas fa-book"></i> Asignaturas</a>
   <a href="salones"><i class="fas fa-book"></i> Salones</a>
-  <a href="horarios"><i class="fas fa-calendar-alt"></i> Creación de Horarios</a>
+  <a href="horarios"><i class="fas fa-calendar-alt"></i> Asignación materias</a>
+  <a href="crear"><i class="fas fa-calendar-alt"></i> Creación horarios</a>
   <a href="#"><i class="fas fa-book"></i> Reportes</a>
   <a href="index" style="background-color: #7A1E39;"><i class="fas fa-sign-out-alt"></i>>Salir</a>
 </div>

@@ -45,3 +45,7 @@ Route::get('/horarios', function () {
 Route::get('/inicio', function () {
     return view('inicio');
 })->name('inicio');
+
+Route::get('/crear', function () {
+    return view('crear');
+})->name('crear');
