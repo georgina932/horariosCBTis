@@ -60,17 +60,17 @@
             }
 
             // Consulta SQL
-            $sql = "SELECT a.nombre AS materia, a.Clave, h.dia, h.HoraIni, h.HoraFin
+            $sql = "SELECT a.nombre AS a.Clave, h.dia, h.HoraIni, h.HoraFin
                     FROM asignatura a
                     INNER JOIN horarios h ON a.id = h.id_asi
                     INNER JOIN salon s ON h.id_sal = s.id  -- Asegúrate de que esta columna existe y es correcta
-                    WHERE s.id = 1
+                    WHERE s.id = 0
                     ORDER BY h.dia, h.HoraIni
                     LIMIT 0, 25";
 
             // Ejecutar consulta
             $result = $conexion->query($sql);
-
+            print_r($result);
             // Verificar si la consulta fue exitosa
             if ($result === false) {
                 echo "Error en la consulta: " . $conexion->error;
