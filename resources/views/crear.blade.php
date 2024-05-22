@@ -14,11 +14,51 @@
     <!-- Agrega el enlace para Font Awesome -->
     @include('principal')
 
-</head>
-<body>
-<!-- Tabla de horarios -->
+    <!-- Estilos CSS para el modal -->
+    <style>
+        /* Estilos para el modal */
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 18;
+    top: 20;
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad 0.9 */
+}
 
-    <h2 style="text-align: center;">crear horarios</h2>
+.modal-content {
+    background-color: #fff; /* Color de fondo blanco */
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Ancho máximo del modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Tabla de horarios -->
+    <h2 style="text-align: center;">Crear Horarios</h2>
     <table class="salon-table">
         <thead>
             <tr>
@@ -33,6 +73,41 @@
             <!-- Aquí se mostrarán los datos -->
         </tbody>
     </table>
+    
+    <!-- Modal para mostrar el horario -->
+    <div id="modal-horario" class="modal">
+        <span class="close">&times;</span>
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+        <h1>Horario del grupo </h1>
+        <table id="horario">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán las filas de la tabla -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
         window.addEventListener('load', function () {
@@ -66,19 +141,37 @@
                      <td>${salon.clave}</td>
                      <td>${salon.grado}</td>
                      <td>${salon.grupo}</td>
-                     <td><button onclick="verHorario(${salon.id})">Crear Horario</button></td>`;
+                     <td><button onclick="cargarHorario(${salon.id})">Crear Horario</button></td>`;
 
                 tablaBody.appendChild(newRow);
             });
         }
-        
-        function verHorario(id) {
-            // Aquí puedes agregar la lógica para mostrar el horario del salón con el ID proporcionado
-            alert('Mostrar horario del salón con ID: ' + id);
+
+        function cargarHorario(id) {
+            // Aquí puedes agregar la lógica para cargar el horario del salón con el ID proporcionado
+            var modal = document.getElementById('modal-horario');
+            var modalContent = modal.querySelector('.modal-content');
+            var closeBtn = modal.querySelector('.close');
+            var modalContentPlaceholder = document.getElementById('modal-content-placeholder');
+
+
+
+            // Mostrar el modal
+            modal.style.display = 'block';
+
+            // Cerrar el modal al hacer clic en la "x"
+            closeBtn.onclick = function () {
+                modal.style.display = 'none';
+            };
+
+            // Cerrar el modal al hacer clic fuera del contenido
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
         }
     </script>
-
-
-</div>
 </body>
+
 </html>

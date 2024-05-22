@@ -1,7 +1,8 @@
 <?php
     // Incluir archivo de conexión
-    include 'php/conexion_be.php';
+    include 'conexion_be.php';
 
+    $idHorario = $_POST["id"];
     // Verificar conexión
     if ($conexion->connect_error) {
         die("Conexión fallida: " . $conexion->connect_error);
@@ -26,7 +27,9 @@
     JOIN
         asignatura
     ON
-    horarios.id_asi = asignatura.id";
+    horarios.id_asi = asignatura.id
+    WHERE
+        salon.id = $idHorario";
 
     // Ejecutar consulta
     $result = $conexion->query($sql);
@@ -37,20 +40,16 @@
         echo "Error en la consulta: " . $conexion->error;
     } else {
         // Generar la estructura de la tabla HTML
-        echo "<table>
-                <tr>
-                    <th>Materia</th>
-                    <th>Clave</th>
-                    <th>Día</th>
-                    <th>Hora de Inicio</th>
-                    <th>Hora de Fin</th>
-                </tr>";
 
-        // Mostrar resultados en la tabla
         if ($result->num_rows > 0) {
+            $dataHorario = array();
+
             while($row = $result->fetch_assoc()) {
-                print_r(json_encode ($row));
+
+                $dataHorario[] = $row;
             }
+
+            echo json_encode($dataHorario);
         } else {
             echo "<tr><td colspan='5' class='no-result'>.</td></tr>";
         }
