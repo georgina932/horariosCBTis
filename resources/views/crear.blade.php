@@ -53,6 +53,20 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+
     </style>
 </head>
 
@@ -73,24 +87,11 @@
             <!-- Aquí se mostrarán los datos -->
         </tbody>
     </table>
-    
+
     <!-- Modal para mostrar el horario -->
     <div id="modal-horario" class="modal">
         <span class="close">&times;</span>
-        <style>
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            th, td {
-                border: 1px solid #000;
-                padding: 8px;
-                text-align: center;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
-        </style>
+
         <h1>Horario del grupo </h1>
         <table id="horario">
             <thead>
@@ -107,6 +108,7 @@
                 <!-- Aquí se insertarán las filas de la tabla -->
             </tbody>
         </table>
+
     </div>
 
     <script>
