@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/sal.css">
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/horarios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Agrega el enlace para Font Awesome -->
     @include('principal')
@@ -98,7 +99,8 @@
                 <!-- Aquí se insertarán las filas de la tabla -->
             </tbody>
         </table>
-
+    <br>
+        <button id="repor">Generar reporte</button>
     </div>
 
     <script>
@@ -155,9 +157,89 @@
             closeBtn.onclick = function () {
                 modal.style.display = 'none';
             };
+            var modal = document.getElementById('modal-horario');
+    modal.style.display = 'block';
 
+    // Agregar evento al botón de generar reporte dentro del modal
+    document.getElementById('repor').addEventListener('click', function () {
+        generarReportePDF();
+    });
 
+            };
+            function generarReportePDF() {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF();
+
+    // Obtener la tabla del modal
+    var table = document.getElementById('horario');
+
+    // Variables para el tamaño de la tabla y las celdas
+    var tableWidth = table.clientWidth;
+    var tableHeight = table.clientHeight;
+
+    // Configuración inicial para el posicionamiento y el formato
+    var xPos = 10;
+    var yPos = 10;
+    var cellPadding = 2; // Espacio interno en las celdas
+    var fontSize = 35; // Tamaño de fuente aumentado
+
+    // Calcular el ancho disponible para la tabla en el PDF
+    var availableWidth = doc.internal.pageSize.width - (xPos * 2); // Restamos los márgenes izquierdo y derecho
+
+    // Calcular el factor de escala para ajustar el tamaño de la tabla al ancho disponible
+    var scale = availableWidth / tableWidth;
+
+    // Calcular el nuevo tamaño de fuente y el espaciado entre celdas
+    fontSize *= scale;
+    cellPadding *= scale;
+
+    // Establecer la nueva configuración de fuente y espaciado
+    doc.setFontSize(fontSize);
+    doc.setLineWidth(0.1); // Grosor de línea para los bordes
+
+    // Estilo para el título
+    doc.setFont('times', 'bold');
+    doc.setTextColor(0, 0, 0); // Color rojo para el título
+
+    // Agregar título
+    doc.text("Horario del Grupo", xPos, yPos);
+    yPos += fontSize + cellPadding * 2; // Ajustar posición vertical después del título
+
+    // Restablecer estilo para la tabla
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0); // Color negro para el contenido de la tabla
+
+    // Recorrer cada fila de la tabla
+    for (var i = 0; i < table.rows.length; i++) {
+        var row = table.rows[i];
+
+        // Recorrer cada celda de la fila
+        for (var j = 0; j < row.cells.length; j++) {
+            var cell = row.cells[j];
+
+            // Calcular el ancho de la celda y ajustar el texto si es necesario
+            var cellWidth = cell.clientWidth * scale - (cellPadding * 2);
+            var cellText = doc.splitTextToSize(cell.innerText, cellWidth);
+
+            // Agregar bordes a la celda
+            doc.rect(xPos, yPos, cell.clientWidth * scale, fontSize + (cellPadding * 2), 'S'); // 'S' significa solo bordes
+
+            // Agregar el contenido de la celda al PDF con formato
+            doc.text(xPos + cellPadding, yPos + cellPadding + fontSize, cellText); // Ajustar posición vertical para que coincida con el texto en el modal
+
+            // Mover la posición en el PDF para la siguiente celda
+            xPos += cell.clientWidth * scale; // No agregamos margen aquí para que los bordes se superpongan
         }
+
+        // Restablecer la posición en el eje X y avanzar en el eje Y para la siguiente fila
+        xPos = 10;
+        yPos += fontSize + (cellPadding * 2); // Ajustar el espacio vertical para que coincida con el texto en el modal
+    }
+
+    // Guardar el PDF
+    doc.save('reporte_horario.pdf');
+}
+
     </script>
 </body>
 
