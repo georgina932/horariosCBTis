@@ -3,6 +3,7 @@ let url = window.location.hostname;
 
 function cargarHorario(id) {
 
+    $("#horario tbody").empty();
     $.ajax({
         url:  "/php/servidor.be.php",
         dataType: "JSON",
@@ -17,6 +18,7 @@ function cargarHorario(id) {
 
 // Crear una estructura de horarios
 function render(json) {
+    console.log(json)
     var grup = json[0].grado + " " + json[0].grupo;
     var schedule = { grupo: grup, dias: {} };
 
@@ -56,6 +58,8 @@ function render(json) {
         row.appendChild(cell);
       });
 
-      //tbody.appendChild(row);
+      tbody.appendChild(row);
     });
+
+    modalHorario()
 }

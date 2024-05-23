@@ -15,27 +15,17 @@
     @include('principal')
 
     <!-- Estilos CSS para el modal -->
-    <style>
-        /* Estilos para el modal */
+   <style>
         .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 18;
-    top: 20;
-    width: 50%;
-    height: 50%;
-    overflow: auto;
-    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad 0.9 */
-}
+            padding: 100px;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
 
 .modal-content {
     background-color: #fff; /* Color de fondo blanco */
-    margin: auto;
-    padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 600px; /* Ancho máximo del modal */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     border-radius: 5px; /* Bordes redondeados */
 }
@@ -60,7 +50,7 @@
             }
             th, td {
                 border: 1px solid #000;
-                padding: 8px;
+                padding: 10px;
                 text-align: center;
             }
             th {
@@ -104,7 +94,7 @@
                     <th>Viernes</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <!-- Aquí se insertarán las filas de la tabla -->
             </tbody>
         </table>
@@ -149,7 +139,7 @@
             });
         }
 
-        function cargarHorario(id) {
+        function modalHorario(id) {
             // Aquí puedes agregar la lógica para cargar el horario del salón con el ID proporcionado
             var modal = document.getElementById('modal-horario');
             var modalContent = modal.querySelector('.modal-content');
@@ -166,12 +156,7 @@
                 modal.style.display = 'none';
             };
 
-            // Cerrar el modal al hacer clic fuera del contenido
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                }
-            };
+
         }
     </script>
 </body>
