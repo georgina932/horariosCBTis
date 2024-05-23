@@ -18,7 +18,7 @@
     <!-- Estilos CSS para el modal -->
    <style>
         .modal {
-            padding: 100px;
+            padding: 150px;
             z-index: 1000;
             transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.9);

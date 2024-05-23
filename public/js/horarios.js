@@ -39,7 +39,7 @@ function render(json) {
     console.log(schedule);
 
     const diasSemana = ["lunes", "martes", "miércoles", "jueves", "viernes"];
-    const horasDia = ["7-9", "9-11", "11-12", "9-1"];
+    const horasDia = ["7-9", "9-11", "11-12", "12-2"];
 
     const tbody = document.querySelector("#horario tbody");
 
